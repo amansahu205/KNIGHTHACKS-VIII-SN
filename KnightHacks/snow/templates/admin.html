@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Run Analysis</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="admin-page">
+
+    <div class="admin-container">
+        <div class="card admin-card">
+            <div class="company-branding" style="margin-bottom: 2rem;">
+                <img src="/static/images/servicenow_logo.png" alt="ServiceNow Logo" class="company-logo">
+            </div>
+            <h1>⚙️ Run New Analysis</h1>
+            <p>Upload your files to re-process the data.</p>
+            
+            <form id="upload-form">
+                <div class="file-upload-wrapper">
+                    <label for="hack_file">A2E Requests File (u_hack.csv)</label>
+                    <input type="file" id="hack_file" name="hack_file" accept=".csv" required>
+                </div>
+                
+                <div class="file-upload-wrapper">
+                    <label for="acc_file">Accelerator Catalog (accelerators.csv)</label>
+                    <input type="file" id="acc_file" name="acc_file" accept=".csv" required>
+                </div>
+                
+                <button type="submit" id="run-analysis-btn">Run Analysis</button>
+            </form>
+            
+            <div id="status-message" class="status-message" style="display: none;">
+                </div>
+            
+            <a href="/" class="admin-link" style="margin-top: 2rem;">Back to Dashboard</a>
+        </div>
+    </div>
+
+    <script src="/static/js/admin.js"></script>
+</body>
+</html>

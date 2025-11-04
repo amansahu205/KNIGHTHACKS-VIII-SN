@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accelerator Analysis Agent</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        
+        <aside class="sidebar">
+            <div class="company-branding">
+                <img src="/static/images/servicenow_logo.png" alt="ServiceNow Logo" class="company-logo">
+            </div>
+            <header class="sidebar-header">
+                <h2>🤖 Request Analyzer Agent</h2>
+            </header>
+            <section class="agent-controls">
+                <p>Paste in a new request to see which emerging need it matches and how our catalog covers it.</p>
+                <textarea id="request-textarea" placeholder="e.g., 'We need help implementing security guardrails and compliance for our new Azure OpenAI service...'"></textarea>
+                <button id="analyze-button">Analyze Request</button>
+            </section>
+            
+            <section class="agent-results" id="agent-results-container">
+                <div class="placeholder">
+                    <p>Analysis results will appear here.</p>
+                </div>
+            </section>
+            
+            <hr class="sidebar-divider">
+            
+            <header class="sidebar-header">
+                <h2>⚙️ Settings</h2>
+            </header>
+            <a href="/admin" class="admin-link">Go to Admin Page</a>
+            <div class="toggle-switch">
+                <label>
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="slider-label">Dark Mode</span>
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </aside>
+
+        <main class="dashboard">
+            <header class="dashboard-header">
+                <h1>Accelerator Insights Dashboard</h1>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <h3>Total A2E Requests</h3>
+                    <p id="stat-total-requests">...</p>
+                    <span class="change neutral">From latest analysis</span>
+                </div>
+                <div class="stat-card">
+                    <h3>Emerging Needs Found</h3>
+                    <p id="stat-total-clusters">...</p>
+                    <span class="change neutral">Min. 10 requests/cluster</span>
+                </div>
+                <div class="stat-card card-chart">
+                    <h3>A2E Roles (Categories)</h3>
+                    <div class="chart-container-small">
+                        <canvas id="category-chart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <section class="card">
+                <div class="card-header">
+                    <h2>🚀 Top Recommended New Accelerators</h2>
+                    <div class="controls-group">
+                        <a href="/api/export-recommendations" id="export-csv-link" class="export-btn">Export to CSV</a>
+                    </div>
+                </div>
+                <div class="filter-buttons">
+                    <span>Sort by:</span>
+                    <button class="filter-btn active" data-sort="default">Default</button>
+                    <button class="filter-btn" data-sort="demand">Demand</button>
+                    <button class="filter-btn" data-sort="gap">Gap Score</button>
+                </div>
+                <div class="table-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Cluster ID</th>
+                                <th>Emerging Need (Keywords)</th>
+                                <th>Demand</th>
+                                <th>Gap Score</th>
+                                <th>Best Fit Accelerator</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recommendations-table-body">
+                            <tr><td colspan="6" class="placeholder">Loading data...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <button id="toggle-table-rows" class="toggle-btn">Show All</button>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>🗺️ Emerging Needs Cluster Map</h2>
+                <p>2D visualization of all incoming A2E requests, grouped by semantic meaning.</p>
+                <div class="chart-container-large" id="cluster-plot-container">
+                    <canvas id="cluster-plot"></canvas>
+                    <div id="plot-loader" class="placeholder">Loading plot data...</div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close-btn">&times;</span>
+            <h2 id="modal-title">Cluster Details</h2>
+            <input type="text" id="modal-search" placeholder="Search requests...">
+            <div class="modal-table-container">
+                <table id="modal-table">
+                    <thead>
+                        <tr><th>Number</th><th>Initiative</th><th>Description</th><th>Category</th></tr>
+                    </thead>
+                    <tbody id="modal-table-body"></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/js/dashboard.js"></script>
+</body>
+</html>

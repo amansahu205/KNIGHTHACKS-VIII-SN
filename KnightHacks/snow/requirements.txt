@@ -1,0 +1,10 @@
+pandas
+streamlit
+sentence-transformers
+umap-learn
+hdbscan
+scikit-learn
+plotly
+flask
+gunicorn
+joblib
